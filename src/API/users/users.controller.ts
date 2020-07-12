@@ -20,28 +20,27 @@ export class UsersController {
         return created;
     }
 
+    @ApiOperation({ description: "Get all users" })
     @Get('all')
     getAll(): string {
         return 'This one returns all the users'
     }
     
+    @ApiOperation({ description: "Create User by ID" })
     @Get('get/:id')
     getOne(@Param('id') id): string {
         return 'This one returns user with id ' + id
     }
 
+    @ApiOperation({ description: "Update User" })
     @Put('update/:id') 
     update(@Param('id') id, @Body() userDto: UserDto):string {
         return 'This one updates user with id ' + id
     }
 
+    @ApiOperation({ description: "Delete User" })
     @Delete('delete/:id')
     remove(@Param('id') id): string {
         return 'This one deletes user with id ' + id
-    }
-
-    @Get('admins')
-    getAdmins(): string {
-        return 'This one returns only admin users'
     }
 }
