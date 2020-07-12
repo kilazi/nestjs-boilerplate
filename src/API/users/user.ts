@@ -1,14 +1,17 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Document } from "mongoose";
 
 export class UserDto {
     @ApiProperty()
-    name: string;
+    readonly name: string;
     @ApiProperty()
-    email: string;
+    readonly email: string;
     @ApiProperty()
-    password?: string;
+    readonly password?: string;
 }
 
-export class User extends UserDto {
-    id: string;
+export interface User extends Document {
+    name: String;
+    email: String;
+    password?: String;
 }
