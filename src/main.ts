@@ -1,20 +1,27 @@
 import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
+import * as cors from 'cors';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
 
-  // SWAGGER
-  const options = new DocumentBuilder()
-    .setTitle('Nest.js Boilerplate')
-    .setDescription('API')
-    .setVersion('0.1')
-    .setContact('Max Kilazi', 'http://kilazi.com', 'sergeev.maxs@gmail.com')
+  const config = new DocumentBuilder()
+    .setTitle('Supernova API')
+    .setDescription('Supernova API description')
+    .setVersion('1.0')
+    .addTag('supernova')
     .build();
-  const document = SwaggerModule.createDocument(app, options);
+  const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
-  // SWAGGER END
+
+  app.enableCors({
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
+
 
 
   await app.listen(3000);
